@@ -33,7 +33,7 @@ int main () {
             L.push_back(win);
         }
 
-        // Sort vector in level order
+        // Sort vector by levels
         sort(L.begin(), L.end(), compareLevels);
 
         // Receive clicks and execute solutions
@@ -67,7 +67,7 @@ int main () {
 
         cout << endl;
 
-        // Sort vector in area order
+        // Sort vector by areas
         sort(L.begin(), L.end(), compareAreas);
 
         // Print info of all windows again
