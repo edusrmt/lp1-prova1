@@ -3,15 +3,17 @@
 using namespace std;
 
 namespace janela {
-    vector<Window> onClick (Window windows[], int size, Coordinate click) {
+    bool compareLevels (const Window &a, const Window &b) {
+        return a.level < b.level;
+    }
+
+    vector<Window> onClick (vector<Window> windows, Coordinate click) {
         vector<Window> subL;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < windows.size(); i++) {
             Window win = windows[i];
 
-            if (click.x >= win.p1.x && click.x <= win.p2.x &&click.y >= win.p1.y && click.y <= win.p2.y) {
-                //std::cout << "(" << click.x << ", " << click.y << ") is into (" << win.p1.x << ", " << win.p1.y << ") and (" << win.p1.x << ", " << win.p1.y << ")!" << std::endl;
-                
+            if (click.x >= win.p1.x && click.x <= win.p2.x &&click.y >= win.p1.y && click.y <= win.p2.y) {                
                 subL.push_back(win);
             }
         }
@@ -19,18 +21,30 @@ namespace janela {
         return subL;
     }
 
-    Window inFront (vector<Window> windows) {
-        Window min;
+    std::vector<Window> moveUp (std::vector<Window> windows, int level) {
+        int targetIndex;
 
-        if (windows.size() > 0) {
-            Window min = windows[0];
-
-            for (Window w : windows) {
-                if (w.level < min.level)
-                    min = w;
+        for (int i = 0; i < windows.size(); i++) {
+            if (windows[i].level == level) {
+                targetIndex = i;
+                break;
             }
-        }        
+        }
 
-        return min;
-    }
+        Window target = windows[targetIndex];
+        target.level = 0;
+        
+        for (int i = targetIndex - 1; i >= 0; i--) {       
+            windows[i + 1] = windows[i];            
+        }
+
+        windows[0] = target;
+
+        for (int i = 0; i <= windows.size(); i++) {
+            if (windows[i].level == windows[i + 1].level)
+                ++windows[i + 1].level;
+        }
+        
+        return windows;
+    }        
 }
