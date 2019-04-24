@@ -7,6 +7,10 @@ namespace janela {
         return a.level < b.level;
     }
 
+    bool compareAreas (const Window &a, const Window &b) {
+        return ((a.p2.x - a.p1.x) * (a.p2.y - a.p1.y)) < ((b.p2.x - b.p1.x) * (b.p2.y - b.p1.y));
+    }
+
     vector<Window> onClick (vector<Window> windows, Coordinate click) {
         vector<Window> subL;
 

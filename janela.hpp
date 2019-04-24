@@ -22,6 +22,7 @@ namespace janela {
     typedef struct window Window;
 
     bool compareLevels (const Window &a, const Window &b);
+    bool compareAreas (const Window &a, const Window &b);
     void discardOverflow (Window windows[], int w, int h);
     std::vector<Window> onClick (std::vector<Window> windows, Coordinate click);
     std::vector<Window> moveUp (std::vector<Window> windows, int level);
